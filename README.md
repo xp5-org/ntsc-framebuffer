@@ -4,7 +4,15 @@ NTSC framebuffer built around 74x cmos logic gates and an 128k x 8bit sram modul
 
 - 8 bits for color + brightness
 - 17 bits address
-- transfer data in during vblank period 
+- transfer data in during vblank period
+
+
+Tasks remaining:
+  - complete memory addressing circuitry
+  - check gate timings for brightness & color control paths
+  - place adjustment potentiometers for setting PNP transistor bias
+  - distribute ceramic capacitors
+  - add debug testpads onto pcb
 
 
 # Table of Contents
