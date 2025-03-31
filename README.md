@@ -10,13 +10,16 @@ NTSC framebuffer built around 74x cmos logic gates and an 128k x 8bit sram modul
 - [H&V Counter](#hvcounter)
 - [HRESET](#hreset)
 - [VRESET](#vreset)
-- [HBLANK](#hblank)
-- [VBLANK](#vblank)
+- [HBLANK](#hblank-hsync)
+- [VBLANK](#vblank-vsync)
 - [COLORBURST](#colorburst)
 - [COLORSELECT](#colorselect)
 - [BRIGHTNESS](#brightness)
 - [MEMORYANDBUS](#memoryandbus)
+- [Output Amplifier](#outputamp)
 - [Components selection](#components)
+- [Simulating](#simtools)
+
 
 
 
@@ -30,17 +33,31 @@ This is the core of the circuit, its two 4040 counters, one driving the other. t
 
 # HRESET
 <img width="1052" alt="Screenshot 2025-03-30 at 7 25 06 PM" src="https://github.com/user-attachments/assets/34855e6e-d72b-4c5e-9eff-090c872445bc" />
+256 + 128 + 64 + 4 + 2
+counts out 454 horizontal & sets HRESET flag to high 5V
+and on the next clock pulse from not the timer we are resetting but the actual clock source
+
+this could have an additional AND gate to wait for positive cycle of H1 for 256 + 128 + 64 + 4 + 2 + 1 = 455 horizontal pixels instead of 454 
 
 # VRESET
 <img width="1226" alt="Screenshot 2025-03-30 at 7 37 49 PM" src="https://github.com/user-attachments/assets/7eef5ace-3dd1-475a-9789-0cfee36c96b9" />
+vreset is 1V + 4V + 256V for 261 vertical lines before resetting the counter
 
+vertical reset is checked at the end of the horizontal scanline, so we use _HRESET as the clock for vreset - the condition of 261V lines is set only when _HRESET is ready
 
-# HBLANK
+# HBLANK-HSYNC
 <img width="1029" alt="Screenshot 2025-03-30 at 7 38 18 PM" src="https://github.com/user-attachments/assets/17e7817a-200d-4ac1-a96d-949750503598" />
 <img width="1030" alt="Screenshot 2025-03-30 at 7 38 24 PM" src="https://github.com/user-attachments/assets/3694a95f-42bc-481d-b5ba-69d04ee7cfa1" />
 
+the circuit starts off with some DC bias to give a sync tip from the "previous" scanline, and then at H2 + H8 HBLANK-ENABLE flop is cycled on. When this is on, elsewhere in the circuit the bias is cut off and gives us the horizontal sync tip
 
-# VBLANK
+When H2 + H8 + H32 is seen (H42) , HBLANK_DISABLE is turned on, which is a 2nd flop "HSYNC B"
+<img width="1032" alt="Screenshot 2025-03-30 at 8 22 18 PM" src="https://github.com/user-attachments/assets/5411d623-2727-4d28-9230-9ce3009e4f3a" />
+
+this lets me chain the hsync events together with explicit start and stop events, block them from re-triggering
+
+
+# VBLANK-VSYNC
 <img width="1163" alt="Screenshot 2025-03-30 at 7 39 06 PM" src="https://github.com/user-attachments/assets/1bf95850-29ed-48e0-9b7e-5c5c4ec7a497" />
 
 
@@ -65,9 +82,16 @@ the 4-16 mux is often used for memory addressing and is only available in active
 <img width="507" alt="Screenshot 2025-03-30 at 7 43 53 PM" src="https://github.com/user-attachments/assets/5229fa18-7066-4fb3-95a5-0d52f375b51b" />
 <img width="482" alt="Screenshot 2025-03-30 at 7 43 57 PM" src="https://github.com/user-attachments/assets/c908dd51-0644-4482-9c94-e30e7bac8f52" />
 
+# outputamp
+<img width="734" alt="Screenshot 2025-03-30 at 8 08 37 PM" src="https://github.com/user-attachments/assets/99eb7eaa-1a76-4243-bb60-a9fcd9228f89" />
+
+
 # Components
 
 
+
+
+# simtools
 
 output amplifier in ltspice, showing peak brightness vs minimum brightness pixels , there is some distortion in the sim
 ![image](https://github.com/user-attachments/assets/067c581b-1207-4646-8b0c-51a6ddc3a029)
