@@ -83,7 +83,7 @@ this lets me chain the hsync events together with explicit start and stop events
 <img width="489" alt="Screenshot 2025-03-30 at 7 41 23 PM" src="https://github.com/user-attachments/assets/7ea562ee-2509-4853-81d2-3851e8e37521" />
 <img width="351" alt="Screenshot 2025-03-30 at 7 41 27 PM" src="https://github.com/user-attachments/assets/796062e5-a800-4fec-b94d-4860a4f0d022" />
 
-the 4-16 mux is often used for memory addressing and is only available in active-low, so in this case im using NOR gates to invert the signal (I think these were meant to be nand?) 
+the 4-16 mux is often used for memory addressing and is only available in active-low, so in this case im using NOR gates to invert the signal . the MUX outputs are always high-inactive, so all NOR gates except for the active one are getting a positive voltage which turns them all off, exxcept for the active-low received from the MUX, this NOR gate switches on and provides a color clock at specific delays introduced by the 74AHC451's 4-5ns gate propigation delay
 <br><br><br><br><br><br><br><br> 
 
 # BRIGHTNESS
