@@ -106,6 +106,12 @@ the 4-16 mux is often used for memory addressing and is only available in active
 <br><br><br><br><br><br><br><br> 
 
 # outputamp
+The output-amplifier interfaces the low-current, low impedience CMOS or TTL logic with the 1.4v, 75-ohm composite. 
+
+HSYNC, Colorburst, and Pixel Input are given to the amplifiers input. Its first passed through a 2n7000 N-channel mosfet which inverts the signal. This drives a PNP transistor to return it back to positive output, this allowed the GND of the composite-out to also be the same reference plane as the GND of this circuit (pnp could be omitted and use only mosfet with resistor network and floating Gnd)
+
+This has two additional mosfets for saturation bias and output voltage reduction (brightness).  The saturation mosfet biases the PNPs turnoff point "upwards" so that its off point rises above what hsync/hblank would have been . this serves the purpose of adding DC bias to reduce the modulation of the output without affecting the output peak (overall brightness). in summary, this is an amplifier which can control the height of the bottoms and tops of the wave output separately. its needed for color, but could dispose of half the mosfets if it were used for monochrome
+
 <img width="734" alt="Screenshot 2025-03-30 at 8 08 37 PM" src="https://github.com/user-attachments/assets/99eb7eaa-1a76-4243-bb60-a9fcd9228f89" />
 
 <br><br><br><br><br><br><br><br> 
