@@ -21,7 +21,6 @@ NTSC framebuffer built around 74x cmos logic gates and an 128k x 8bit sram modul
 
 
 # Current PCB Layout
-This is the second example.
 ![pcb_infographic](https://github.com/user-attachments/assets/7c2ed00b-3327-469c-a76e-db1d633f8326)
 
 # hvcounter
@@ -67,7 +66,7 @@ the 4-16 mux is often used for memory addressing and is only available in active
 <img width="482" alt="Screenshot 2025-03-30 at 7 43 57 PM" src="https://github.com/user-attachments/assets/c908dd51-0644-4482-9c94-e30e7bac8f52" />
 
 # Components
-This is the first example.
+
 
 
 output amplifier in ltspice, showing peak brightness vs minimum brightness pixels , there is some distortion in the sim
