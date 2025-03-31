@@ -32,7 +32,7 @@ NTSC framebuffer built around 74x cmos logic gates and an 128k x 8bit sram modul
 <br><br><br><br><br><br><br><br> 
 
 # hvcounter
-This is the core of the circuit, its two 4040 counters, one driving the other. the first counts out 455 which is the number of horizontal pixels per row. the output is binary, and with enough AND gates alongside numerous D type flipflops, specific events can be timed out and set to form the sync timings needed
+This is the core of the circuit, its two 4040 counters, one driving the other. the first counts out 454 which is the number of inactive + active horizontal pixels per row. the output is binary, and with enough AND gates alongside numerous D type flipflops, specific events can be timed out and set to form the sync timings needed
 
 <img width="1116" alt="hv_counter_schematicblock" src="https://github.com/user-attachments/assets/ac2bd6a3-3dfa-4c98-8c49-ba28c4ea0735" />
 
@@ -44,8 +44,6 @@ This is the core of the circuit, its two 4040 counters, one driving the other. t
 256 + 128 + 64 + 4 + 2
 counts out 454 horizontal & sets HRESET flag to high 5V
 and on the next clock pulse from not the timer we are resetting but the actual clock source
-
-this could have an additional AND gate to wait for positive cycle of H1 for 256 + 128 + 64 + 4 + 2 + 1 = 455 horizontal pixels instead of 454 
 
 
 <br><br><br><br><br><br><br><br> 
