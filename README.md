@@ -87,8 +87,18 @@ the 4-16 mux is often used for memory addressing and is only available in active
 
 
 # Components
-
-
+74HC74 D-FLOP
+74HC08 AND
+74HC02 NOR
+74hc244 buffers 
+74hc154 4-to-16 mux
+74ahc541 inv buffers (color delay line)
+CD4040 12 bit counter
+14.318mhz crystal
+128x8 sram HM628128DLP-5
+2n5087 pnp or equivalent
+2n7000 mosfet
+7805 regulator
 
 
 # simtools
