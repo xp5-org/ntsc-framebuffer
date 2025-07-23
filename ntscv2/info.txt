@@ -1,0 +1,39 @@
+/ntscv2$ grep '(global_label' ntscv2.kicad_sch | sed -n 's/.*"\([^"]*\)".*/\1/p' | sort | uniq -c | sort -n | tail -n15
+      4 H4
+      4 H64
+      4 HSYNCB
+      4 m1_data4
+      4 m1_data5
+      4 m1_data6
+      4 m1_data7
+      4 PIXELDRAWEN
+      5 H8
+      6 H1
+      6 H2
+      6 VRESET
+      7 CDL_output_enable
+      8 _HRESET
+      9 _VBLANK_BUFFERED
+
+shows number of gates connected to a global label to get an idea for fanout load
+
+
+
+READ:
+CS1 - L
+CS2 - H
+OE - L
+WE - H
+
+WRITE:
+READ:
+CS1 - L
+CS2 - H
+OE - L or H
+WE - L
+
+A write occurs during the overlap of a low CS1, a high CS2, and a low WE. A write begins at the
+latest transition among CS1 going low, CS2 going high, and WE going low. A write ends at the
+earliest transition among CS1 going high, CS2 going low, and WE going high. tWP is measured
+from the beginning of write to the end of write
+
